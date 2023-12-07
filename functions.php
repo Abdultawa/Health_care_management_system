@@ -1,5 +1,4 @@
 <?php
-
 function login( $dbconn){
     if(isset($_POST['login'])){
         //get user's input
@@ -56,6 +55,7 @@ function register($dbconn){
       
             if ($result) {
                 echo "<script>alert('Registration successful');</script>";
+                header("location:login.php");
                 
             } else {
                 echo "<script>alert('Registration failed');</script>";
@@ -114,4 +114,83 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     
+}
+
+function logIn_access(){
+    if (!isset($_SESSION['user_id'])) {
+        header('location:../login.php');
+    }
+}
+
+function fatch_record($a,$b,$c,$dbconn){
+    $sql  = "SELECT * FROM $a WHERE $b = '$c'";
+    $result = mysqli_query($dbconn, $sql);
+    return $result;
+}
+function set_msg($msg)
+	{
+		if (!empty($msg)) {
+			$_SESSION['msg'] = $msg;
+		}
+		else{
+			$msg="";
+		}
+	}
+
+function approve_query($dbconn){
+
+    $sql = "SELECT * FROM appointment WHERE day_id='".$_SESSION['days']."' AND user_id='".$_SESSION['user_id']."' AND status='booked'";
+    
+    $result = mysqli_query($dbconn, $sql);
+
+    if (mysqli_num_rows($result)>0) {
+        return true;
+    }else{
+        return false;
+    }
+}
+
+function send_appointment(){
+    include("database.php");
+
+
+    if (isset($_POST['book'])) {
+
+
+        if (approve_query($connection)) {
+
+
+            set_msg('<div class="alert alert-warning text-center" id="msg">You have a pending booking, pls wait</div>');
+            ?>
+            <script type="text/javascript">
+                setTimeout(()=> window.location.href="dashboard.php", 3000);
+            </script>
+
+            <?php
+        }else{
+
+            $sql = mysqli_query($connection, "UPDATE appointment SET status ='booked', user_id='".$_SESSION['user_id']."' WHERE appointment_id='".$_SESSION['btn_view']."'");
+
+            if ($sql) {
+                set_msg('<div class="alert alert-success text-center" id="msg">You have booked successfully</div>');
+                ?>
+
+            <?php
+             
+            }else{
+                set_msg('<div class="alert alert-danger text-center" id="msg">Failed to book</div>');
+            }
+
+
+        }			
+    }
+}
+
+function fetch_user_appointment($dbconn){
+
+
+    $sql = "SELECT * FROM appointment WHERE user_id='".$_SESSION['user_id']."' AND status='booked' OR status='approved' ";
+    $result = mysqli_query($dbconn, $sql);
+
+    return $result;
 }

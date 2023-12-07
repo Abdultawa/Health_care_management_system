@@ -27,6 +27,12 @@
  include("../functions.php");
  include("../database.php");
  login($connection);
+ logIn_access();
+if (isset($_POST['days'])) {
+    $_SESSION['days'] = $_POST['days'];
+    header("location:view.php");
+}
+
 ?>
 
 <header class=" bg-body-tertiary overflow-hidden ">
@@ -38,9 +44,9 @@
             </div>
         </div>
     </header>
-    <div class="container">
+    <div class="container mt-5 ">
 
-    <form class="p-4 p-md-5 rounded-3" method="post">
+    <!-- <form class="p-4 p-md-5 rounded-3" method="post">
   <h2 class="text-center">Appointment</h2>
           <div class="row">
             <div class="col-md-6">
@@ -80,10 +86,68 @@
             </div>
           </div>
           <button class="w-100 btn btn-lg btn-primary mt-2 " type="submit" name="submit" style="border-radius:32px;">Submit</button>
-</form>
-<?php
-book($connection);
-?>
+</form> -->
+
+<div class="pt-4 p-5">
+<div class="row">
+  <div class="col-lg-4 mt-3 text-center p-3">
+    <form method="post">
+    <div class=" card shadow ">
+      <div class="card-header"><b>MONDAY</b></div>
+      <div class="class-body bg-primary text-light py-3">
+        Working Days <br>
+        <button type="submit" class="btn btn-light" value="MONDAY" name="days">Book</button>
+      </div>
+    </div>
+    </form>
+  </div>
+  <div class="col-lg-4 mt-3 text-center p-3">
+    <form method="post">
+    <div class=" card shadow ">
+      <div class="card-header"><b>TUESDAY</b></div>
+      <div class="class-body bg-primary text-light py-3">
+        Working Days <br>
+        <button type="submit" class="btn btn-light" value="TUESDAY" name="days">Book</button>
+      </div>
+    </div>
+    </form>
+  </div>
+  <div class="col-lg-4 mt-3 text-center p-3">
+    <form method="post">
+    <div class=" card shadow ">
+      <div class="card-header"><b>WEDNESDAY</b></div>
+      <div class="class-body bg-primary text-light py-3">
+        Working Days <br>
+        <button type="submit" class="btn btn-light" value="WEDNESDAY" name="days">Book</button>
+      </div>
+    </div>
+    </form>
+  </div>
+  <div class="col-lg-4 mt-3 text-center p-3">
+    <form method="post">
+    <div class=" card shadow ">
+      <div class="card-header"><b>THURSDAY</b></div>
+      <div class="class-body bg-primary text-light py-3">
+        Working Days <br>
+        <button type="submit" class="btn btn-light" value="THURSDAY" name="days">Book</button>
+      </div>
+    </div>
+    </form>
+  </div>
+  <div class="col-lg-4 mt-3 text-center p-3">
+    <form method="post">
+    <div class=" card shadow ">
+      <div class="card-header"><b>FRIDAY</b></div>
+      <div class="class-body bg-primary text-light py-3">
+        Working Days <br>
+        <button type="submit" class="btn btn-light" value="FRIDAY" name="days">Book</button>
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
+</div>
+
 
     </div>
     

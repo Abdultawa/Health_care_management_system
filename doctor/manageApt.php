@@ -36,7 +36,7 @@ include("../functions.php");
 <?php
 include("../database.php");
 include("docNav.php");
-$sql = "SELECT * FROM book";
+$sql = "SELECT * FROM appointment INNER JOIN Register ON Register.Id = appointment.user_id";
 $result = mysqli_query($connection, $sql);
 
 if ($result->num_rows > 0) { 
@@ -57,13 +57,13 @@ if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
         ?>
     <tr>
-      <td><?php echo $row['name'] ?></td>
-      <td><?php echo $row['time'] ?></td>
-      <td><?php echo $row['day'] ?></td>
+      <td><?php echo $row['fullName'] ?></td>
+      <td><?php echo $row['appoint_time'] ?></td>
+      <td><?php echo $row['day_id'] ?></td>
       <td><?php echo $row['status'] ?></td>
       <td>
       <form action="" method="post">
-                <input type="hidden" name="appointment_id" value="<?php echo $row['Id']; ?>">
+                <input type="hidden" name="appointment_id" value="<?php echo $row['appointment_id']; ?>">
                 <input type="submit" name="approve" value="Approve" class="btn btn-success text-white">
             </form>
     </td>
@@ -82,7 +82,7 @@ if ($result->num_rows > 0) {
 <?php
 if (isset($_POST["approve"])) {
     $appointment_id = $_POST['appointment_id'];
-    $sql = "UPDATE book SET `status` = 'approved' WHERE Id = '$appointment_id'";
+    $sql = "UPDATE appointment SET `status` = 'approved' WHERE appointment_id = '$appointment_id'";
     $result = mysqli_query($connection, $sql);
     if($result){
         header("location:manageApt.php");

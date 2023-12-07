@@ -1,7 +1,4 @@
-<?php
- session_start();
-// logIn_access();
-?>
+<?php session_start()?>
 <!DOCTYPE html>
 <html lang="en">
 <style>
@@ -24,24 +21,28 @@
 
 </head>
 <body>
-<?php include("patientNav.php");
- include("../functions.php");
- include("../database.php");
-//  login($connection);
- $data = fetch_user_appointment($connection);
+<?php
+// approve_query($connection);
 
+include("patientNav.php");
+include("../database.php");
+include("../functions.php");
+
+ $data = fatch_record("appointment", "appointment_id", $_SESSION['btn_view'],$connection);
+ $row = mysqli_fetch_assoc($data);
 ?>
-
 <header class=" bg-body-tertiary overflow-hidden ">
         <div class="container">
             <div class="row">
                 <div class=" col-xl-10 offset-xl-1 ">
-                    <h1 class="text-center">APPOINTMENT RECORD</h1>
+                    <h1 class="text-center">APPOINTMENT</h1>
                 </div>
             </div>
         </div>
     </header>
+
     <div class="container" style="margin-top: -10vh;">
+                <form method="post">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card shadow">
@@ -51,43 +52,31 @@
 
                                         <thead style="padding: -50px;">
                                             <tr style="padding: -50px;">
-                                                <th>ID</th>
                                                 <th>APPOINTMENT DAY</th>
-                                                <th>TIME</th>
-                                                <th>STATUS</th>
+                                                <td><?php echo $row['day_id'] ?></td>
                                             </tr>
                                         </thead>
                                         <tbody>
-
                                             <tr>
-                                                <?php 
-                                                $counter =1;
-                    if(mysqli_num_rows($data)>0){
-                        while($row = mysqli_fetch_assoc($data)){
-                         ?>
-                                                <td><?php echo $counter++ ?></td>
-                                                <td><?php echo $row['day_id'] ?></td>
+                                                <th>AVAILABLE TIME</th>
                                                 <td><?php echo $row['appoint_time'] ?></td>
-                                                <td><?php if ($row['status']=="approved") {
-                                    // code...
-                                    ?>
-                                    <button class="btn btn-success" disabled>Approved</button>
-                                    <?php
-                                        }else{ ?><button class="btn btn-warning">Pending</button>
-                                    <?php } ?></td>
                                             </tr>
-                                        <?php }} ?>
-                                           
-                                            <!-- Add more rows as needed -->
+                                             <tr>
+                                                <th>BOOKING STATUS</th>
+                                                <td>Available</td>
+                                            </tr>
+
                                         </tbody>
+
                                     </table>
+                                     <button class="btn btn-success col-sm-7" name="book" type="submit">Book this now</button>
+                                            
+                                     <?php send_appointment();?>
+                                   
                             </div>
                         </div>
                     </div>
                 </div> <!-- end of row -->
-            </div> 
-    <script src="/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-</body>
-
-</html>
+            </form>
+            </div> <!-- end of container -->
+        </div> <!-- 
