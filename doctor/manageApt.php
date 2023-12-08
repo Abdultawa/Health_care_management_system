@@ -85,7 +85,12 @@ if (isset($_POST["approve"])) {
     $sql = "UPDATE appointment SET `status` = 'approved' WHERE appointment_id = '$appointment_id'";
     $result = mysqli_query($connection, $sql);
     if($result){
-        header("location:manageApt.php");
+        ?>
+         <script type="text/javascript">
+                setTimeout(()=> window.location.href="dashboard.php", 1000);
+            </script>
+
+       <?php
     }
 }
 ?>

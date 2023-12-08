@@ -25,6 +25,6 @@
   <div class="container py-5">
   <h1 class="text-light">How we can help...</h1>
   <p class="text-light" style="font-style:italic; font-weight:500; font-size:20px;">We offer a wide range of procedures to help you get the perfect smile.</p>
-  <button class=" float-end btn btn-light text-primary  p-2">Book Appointment</button>
+  <a href="./login.php"><button class=" float-end btn btn-light text-primary  p-2">Book Appointment</button></a>
   </div>
 </div>

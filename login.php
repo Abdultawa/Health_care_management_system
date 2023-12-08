@@ -41,7 +41,7 @@
         </form>
 </div>
 <center>
-<a href="doctor/docLogin.php" class="btn btn-light text-info  btn-outline-info mt-3" type="submit">Doctor Login</a>
+<a href="doctor/docLogin.php" class="btn btn-light text-info  btn-outline-info mt-3" type="submit">Doctor Login</a> <br> <a href="index.php" class="btn btn-primary text-center mt-3">Go Back</a>
 </center>
         <script src="/js/bootstrap.bundle.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
